@@ -29,6 +29,6 @@
     "preset": "react-native"
   },
   "resolutions": {
-    "native-base/react-native-vector-icons": "^6.6.0"
+    "native-base/react-native-vector-icons": "^7.0.0"
   }
 }
