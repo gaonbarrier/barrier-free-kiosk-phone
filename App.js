@@ -25,7 +25,7 @@ export default class FooterTabsBadgeExample extends Component {
         <Header>
           <Left>
             <Button transparent>
-              <Icon name="arrow-back" />
+              <Icon name="ios-arrow-back" />
             </Button>
           </Left>
           <Body>

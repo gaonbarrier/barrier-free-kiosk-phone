@@ -20,9 +20,9 @@ export default class OrderList extends Component {
           </Left>
           <Body>
             <Text>{this.props.name}</Text>
-            {this.props.options.map((option) => {
+            {this.props.options.map((option, i) => {
               return (
-                <Text note numberOfLines={1}>
+                <Text note key={i} numberOfLines={i}>
                   {option}
                 </Text>
               );
