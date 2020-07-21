@@ -8,6 +8,7 @@ import {
   Right,
   Text,
   Thumbnail,
+  Toast,
 } from 'native-base';
 
 export default class OrderList extends Component {
@@ -29,7 +30,14 @@ export default class OrderList extends Component {
             })}
           </Body>
           <Right>
-            <Button transparent>
+            <Button
+              transparent
+              onPress={() =>
+                Toast.show({
+                  text: 'Wrong password!',
+                  buttonText: 'Okay',
+                })
+              }>
               <Text>View</Text>
             </Button>
           </Right>
