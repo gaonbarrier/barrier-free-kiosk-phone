@@ -13,12 +13,9 @@ import {
   Body,
   Right,
   Title,
-  List,
-  ListItem,
-  Thumbnail,
 } from 'native-base';
 import OrderList from './components/orderList';
-export default class FooterTabsBadgeExample extends Component {
+export default class App extends Component {
   render() {
     return (
       <Container>
@@ -38,6 +35,21 @@ export default class FooterTabsBadgeExample extends Component {
           </Right>
         </Header>
         <Content>
+          <OrderList
+            thumbnail={require('./images/coffee.jpg')}
+            name="아메리카노!"
+            options={['휘핑크림: 추가', '샷: 3', '시럽: 없음']}
+          />
+          <OrderList
+            thumbnail={require('./images/coffee.jpg')}
+            name="아메리카노!"
+            options={['휘핑크림: 추가', '샷: 3', '시럽: 없음']}
+          />
+          <OrderList
+            thumbnail={require('./images/coffee.jpg')}
+            name="아메리카노!"
+            options={['휘핑크림: 추가', '샷: 3', '시럽: 없음']}
+          />
           <OrderList
             thumbnail={require('./images/coffee.jpg')}
             name="아메리카노!"
