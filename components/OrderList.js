@@ -17,7 +17,7 @@ export default class OrderList extends Component {
       <List>
         <ListItem thumbnail>
           <Left>
-            <Thumbnail square source={this.props.thumbnail} />
+            <Thumbnail small source={this.props.thumbnail} />
           </Left>
           <Body>
             <Text>{this.props.name}</Text>
@@ -30,14 +30,7 @@ export default class OrderList extends Component {
             })}
           </Body>
           <Right>
-            <Button
-              transparent
-              onPress={() =>
-                Toast.show({
-                  text: 'Wrong password!',
-                  buttonText: 'Okay',
-                })
-              }>
+            <Button transparent>
               <Text>View</Text>
             </Button>
           </Right>

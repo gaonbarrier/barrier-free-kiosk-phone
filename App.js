@@ -1,87 +1,90 @@
 import React, {Component} from 'react';
 import {
   Container,
-  Header,
   Content,
-  Footer,
-  FooterTab,
-  Button,
-  Icon,
   Text,
-  Badge,
-  Left,
-  Body,
-  Right,
-  Title,
+  Icon,
 } from 'native-base';
-import OrderList from './components/orderList';
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart,
+} from 'react-native-chart-kit';
+import OrderList from './components/OrderList';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+
+const Tab = createBottomTabNavigator();
+
+function Test1() {
+  return (
+    <Content style={{backgroundColor: 'white'}}>
+      <OrderList
+        thumbnail={require('./images/coffee.jpg')}
+        name="아메리카노"
+        options={['휘핑크림: 추가', '샷: 3', '시럽: 없음']}
+      />
+      <OrderList
+        thumbnail={require('./images/coffee.jpg')}
+        name="아메리카노"
+        options={['휘핑크림: 추가', '샷: 3', '시럽: 없음']}
+      />
+      <OrderList
+        thumbnail={require('./images/coffee.jpg')}
+        name="아메리카노"
+        options={['휘핑크림: 추가', '샷: 3', '시럽: 없음']}
+      />
+    </Content>
+  );
+}
+
+function Test2() {
+  return <Text>Test2</Text>;
+}
+
+function HomeScreen({navigation}) {
+  return (
+    <Container>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            return <Icon name="md-notifications-off-sharp" />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        }}>
+        <Tab.Screen name="Home" component={Test1} />
+        <Tab.Screen name="Settings" component={Test2} />
+      </Tab.Navigator>
+    </Container>
+  );
+}
+
+function NotificationsScreen({navigation}) {
+  return <Text>Hello</Text>;
+}
+
+const Drawer = createDrawerNavigator();
+
 export default class App extends Component {
   render() {
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button transparent>
-              <Icon name="ios-arrow-back" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Header</Title>
-          </Body>
-          <Right>
-            <Button transparent>
-              <Icon name="menu" />
-            </Button>
-          </Right>
-        </Header>
-        <Content>
-          <OrderList
-            thumbnail={require('./images/coffee.jpg')}
-            name="아메리카노!"
-            options={['휘핑크림: 추가', '샷: 3', '시럽: 없음']}
-          />
-          <OrderList
-            thumbnail={require('./images/coffee.jpg')}
-            name="아메리카노!"
-            options={['휘핑크림: 추가', '샷: 3', '시럽: 없음']}
-          />
-          <OrderList
-            thumbnail={require('./images/coffee.jpg')}
-            name="아메리카노!"
-            options={['휘핑크림: 추가', '샷: 3', '시럽: 없음']}
-          />
-          <OrderList
-            thumbnail={require('./images/coffee.jpg')}
-            name="아메리카노!"
-            options={['휘핑크림: 추가', '샷: 3', '시럽: 없음']}
-          />
-        </Content>
-        <Footer>
-          <FooterTab>
-            <Button badge vertical>
-              <Badge>
-                <Text>2</Text>
-              </Badge>
-              <Icon name="apps" />
-              <Text>Apps</Text>
-            </Button>
-            <Button vertical>
-              <Icon name="camera" />
-              <Text>Camera</Text>
-            </Button>
-            <Button active badge vertical>
-              <Badge>
-                <Text>51</Text>
-              </Badge>
-              <Icon active name="navigate" />
-              <Text>Navigate</Text>
-            </Button>
-            <Button vertical>
-              <Icon name="person" />
-              <Text>Contact</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
+        <NavigationContainer>
+          <Drawer.Navigator initialRouteName="Home">
+            <Drawer.Screen name="Home" component={HomeScreen} />
+            <Drawer.Screen
+              name="Notifications"
+              component={NotificationsScreen}
+            />
+          </Drawer.Navigator>
+        </NavigationContainer>
       </Container>
     );
   }
