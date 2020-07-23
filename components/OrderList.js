@@ -8,7 +8,6 @@ import {
   Right,
   Text,
   Thumbnail,
-  Toast,
 } from 'native-base';
 
 export default class OrderList extends Component {
