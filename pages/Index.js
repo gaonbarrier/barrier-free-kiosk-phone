@@ -31,23 +31,21 @@ export default class DWrapper extends Component {
 class TabWrapper extends Component {
   render() {
     return (
-      <Container>
-        <Tab.Navigator
-          screenOptions={({route}) => ({
-            tabBarIcon: ({focused, color, size}) => {
-              return getIcon(route.name);
-            },
-          })}
-          tabBarOptions={{
-            activeTintColor: 'tomato',
-            inactiveTintColor: 'gray',
-          }}>
-          <Tab.Screen name="메인" component={_Main} />
-          <Tab.Screen name="주문" component={_Order} />
-          <Tab.Screen name="메뉴" component={_Menu} />
-          <Tab.Screen name="키오스크" component={_Monitoring} />
-        </Tab.Navigator>
-      </Container>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            return getIcon(route.name);
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: '#D93820',
+          inactiveTintColor: 'gray',
+        }}>
+        <Tab.Screen name="메인" component={_Main} />
+        <Tab.Screen name="주문" component={_Order} />
+        <Tab.Screen name="메뉴" component={_Menu} />
+        <Tab.Screen name="키오스크" component={_Monitoring} />
+      </Tab.Navigator>
     );
   }
 }
