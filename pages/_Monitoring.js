@@ -25,7 +25,7 @@ const tabletList = {
 export default class _Monitoring extends Component {
   render() {
     return (
-      <Content style={{padding: 10}}>
+      <Content style={{padding: 10, backgroundColor: 'white'}}>
         <TabletListCreator />
       </Content>
     );

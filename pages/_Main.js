@@ -6,7 +6,7 @@ import {LineChart, BarChart} from 'react-native-chart-kit';
 export default class _Main extends Component {
   render() {
     return (
-      <Content style={{padding: 10}}>
+      <Content style={{padding: 10, backgroundColor: 'white'}}>
         <Card key={1}>
           <CardItem>
             <Text style={{fontWeight: 'bold'}}>매상 정보</Text>
