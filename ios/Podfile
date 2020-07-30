@@ -8,6 +8,8 @@ target 'barrier_free_kiosk_manager_app' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'barrier_free_kiosk_manager_appTests' do
     inherit! :complete
     # Pods for testing

@@ -10,10 +10,20 @@ import {
   Item,
   Input,
   Label,
+  Thumbnail,
 } from 'native-base';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, ScrollView} from 'react-native';
 import {List, FAB} from 'react-native-paper';
 import {createStackNavigator} from '@react-navigation/stack';
+import ImagePicker from 'react-native-image-picker';
+
+const options = {
+  title: '이미지 찾기',
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 
 const MenuList = (props) => (
   <ListItem>
@@ -70,7 +80,8 @@ const styles = StyleSheet.create({
 });
 
 const MenuAdd = () => (
-  <Content style={{paddingLeft: 10, paddingRight: 10, backgroundColor: 'white'}}>
+  <Content
+    style={{paddingLeft: 10, paddingRight: 10, backgroundColor: 'white'}}>
     <Item stackedLabel style={MenuStyle.item}>
       <Label>메뉴 이름</Label>
       <Input />
@@ -79,11 +90,44 @@ const MenuAdd = () => (
       <Label>메뉴 설명</Label>
       <Input />
     </Item>
-    <Button primary style={MenuStyle.item}>
-      <Text>추가</Text>
-    </Button>
+    <View style={MenuStyle.item}>
+      <ScrollView horizontal={true}>
+        <Thumbnail style={{marginRight:5, backgroundColor: '#dbdbdb'}} square />
+        <Thumbnail style={{marginLeft:5, marginRight:5, backgroundColor: '#dbdbdb'}} square />
+        <Thumbnail style={{marginLeft:5, marginRight:5, backgroundColor: '#dbdbdb'}} square />
+        <Thumbnail style={{marginLeft:5, marginRight:5, backgroundColor: '#dbdbdb'}} square />
+        <Thumbnail style={{marginLeft:5, marginRight:5, backgroundColor: '#dbdbdb'}} square />
+        <Thumbnail style={{marginLeft:5, marginRight:5, backgroundColor: '#dbdbdb'}} square />
+        <Thumbnail style={{marginLeft:5, backgroundColor: '#dbdbdb'}} square />
+      </ScrollView>
+      <View>
+        <Button style={MenuStyle.item_button} onPress={() => getImage()}>
+          <Text>이미지</Text>
+        </Button>
+      </View>
+    </View>
   </Content>
 );
+
+const getImage = () =>
+  ImagePicker.launchImageLibrary(options, (response) => {
+    console.log('Response = ', response);
+
+    if (response.didCancel) {
+      console.log('User cancelled image picker');
+    } else if (response.error) {
+      console.log('ImagePicker Error: ', response.error);
+    } else {
+      const source = {uri: response.uri};
+
+      // You can also display the image using data:
+      // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+      this.setState({
+        avatarSource: source,
+      });
+    }
+  });
 
 const Stack = createStackNavigator();
 
@@ -96,8 +140,17 @@ const _Menu = () => (
 
 const MenuStyle = StyleSheet.create({
   item: {
+    margin: 10,
+  },
+  item_image: {
+    margin: 10,
+    flexDirection: 'row',
+  },
+  item_button: {
+    marginBottom: 10,
     marginTop: 10,
   },
+  test: {width: 80, height: 80, backgroundColor: 'red', margin: 10},
 });
 
 export default _Menu;
