@@ -51,18 +51,24 @@ class MenuAdd extends Component {
   constructor() {
     super();
     this.state = {
-      ingredients: {},
+      ingredients: {
+        Bean: 'Bean Image',
+        Water: 'Water Image',
+      },
     };
   }
-  updateIngredients() {
-    this.setState(() => {
-      this.state.ingredients.push('test');
-      this.setState({ingredients: this.state.ingredients});
-    });
+  updateIngredients(menuName = '메뉴이름') {
+    this.state.ingredients.menuName = 'Test';
+    this.setState({ingredients: this.state.ingredients});
   }
   render() {
-    const Ingreds = () =>
-      this.state.ingredients.map((name, index) => <Ingred_Edit name={name} />);
+    const Ingreds = () => {
+      let tag = [];
+      for (let name in this.state.ingredients) {
+        tag.push(<Ingred_Edit name={name} key={name} />);
+      }
+      return tag;
+    };
 
     return (
       <Content
