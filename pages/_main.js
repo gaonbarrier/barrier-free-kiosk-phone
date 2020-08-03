@@ -3,7 +3,7 @@ import {Card, CardItem, Content, Text} from 'native-base';
 import {Dimensions} from 'react-native';
 import {LineChart, BarChart} from 'react-native-chart-kit';
 
-export default class _Main extends Component {
+export default class _main extends Component {
   render() {
     return (
       <Content style={{padding: 10, backgroundColor: 'white'}}>

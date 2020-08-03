@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import DWrapper from './pages/Index';
+import DWrapper from './pages';
 import {RunServer, RunClient} from './networks/Server';
 
 export default class App extends Component {

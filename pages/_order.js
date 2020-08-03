@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Content} from 'native-base';
-import OrderList from '../components/OrderList';
+import OrderComponents from '../components/order-components';
 
 const json = {
   Action: 'OrderSubmit',
@@ -21,7 +21,7 @@ const json = {
   },
 };
 
-export default class _Order extends Component {
+export default class _order extends Component {
   render() {
     return (
       <Content style={{backgroundColor: 'white'}}>
@@ -35,8 +35,8 @@ function OrderListCreator() {
   let rows = [];
   for (let i = 0; i < Object.keys(json.OrderList).length; i++) {
     rows.push(
-      <OrderList
-        key={'OrderList' + i}
+      <OrderComponents
+        key={'OrderComponents' + i}
         thumbnail={require('../images/coffee.jpg')}
         name={json.OrderList[i].Menu + ' X ' + json.OrderList[i].Count}
         options={json.OrderList[i].Options}

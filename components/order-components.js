@@ -10,7 +10,7 @@ import {
   Thumbnail,
 } from 'native-base';
 
-export default class OrderList extends Component {
+export default class OrderComponents extends Component {
   render() {
     return (
       <List>

@@ -22,7 +22,7 @@ const tabletList = {
   2: {battery: '100', wifi: 'Strong'},
 };
 
-export default class _Monitoring extends Component {
+export default class _tablets extends Component {
   render() {
     return (
       <Content style={{padding: 10, backgroundColor: 'white'}}>
