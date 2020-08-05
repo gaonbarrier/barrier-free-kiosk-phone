@@ -52,20 +52,46 @@ class MenuAdd extends Component {
     super();
     this.state = {
       ingredients: {
-        Bean: 'Bean Image',
-        Water: 'Water Image',
+        0: {
+          name: 'Bean',
+          source: {
+            uri: null,
+          },
+        },
+        1: {
+          name: 'Water',
+          source: {
+            uri: null,
+          },
+        },
       },
     };
   }
-  updateIngredients(menuName = '메뉴이름') {
-    this.state.ingredients.menuName = 'Test';
+  updateIngredients = (
+    index = Object.keys(this.state.ingredients).length,
+    name = '메뉴이름',
+    thumbSource = {
+      uri: null,
+    },
+  ) => {
+    let obj = {};
+    obj.name = name;
+    obj.source = thumbSource;
+    this.state.ingredients[index] = obj;
     this.setState({ingredients: this.state.ingredients});
-  }
+  };
   render() {
     const Ingreds = () => {
       let tag = [];
-      for (let name in this.state.ingredients) {
-        tag.push(<Ingred_Edit name={name} key={name} />);
+      for (let index in this.state.ingredients) {
+        tag.push(
+          <Ingred_Edit
+            name={this.state.ingredients[index].name}
+            key={index}
+            thumbSource={this.state.ingredients[index].source}
+            upIngred={this.updateIngredients}
+          />,
+        );
       }
       return tag;
     };
