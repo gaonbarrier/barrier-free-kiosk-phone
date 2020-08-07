@@ -67,6 +67,10 @@ class MenuAdd extends Component {
   constructor() {
     super();
     this.state = {
+      menu: '메뉴 이름',
+      category: '카테고리',
+      price_1: 1300,
+      price_2: 1500,
       ingredients: {
         0: {
           name: 'Bean',
