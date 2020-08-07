@@ -82,7 +82,19 @@ const xButton = (props) => {
 };
 
 export class Option_Edit extends Component {
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLast: false,
+    };
+  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.isLast !== prevState.isLast) {
+      return {isLast: nextProps.isLast};
+    }
+
+    return null;
+  }
   render() {
     return (
       <View style={{flexDirection: 'row'}}>

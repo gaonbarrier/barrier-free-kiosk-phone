@@ -140,9 +140,10 @@ class MenuAdd extends Component {
       let tag = [];
       for (let index in this.state.options) {
         // 10진수로 파싱
-        index = parseInt(index, 10);
+        // index = parseInt(index, 10);
         let flag = false;
-        if (index === Object.keys(this.state.options).length - 1) {
+        let _options = Object.keys(this.state.options);
+        if (index === _options[_options.length - 1]) {
           flag = true;
         }
         tag.push(
