@@ -1,15 +1,31 @@
 import React, {Component} from 'react';
-import {View, Content, Item, Input, Label, Text} from 'native-base';
-import {StyleSheet, ScrollView} from 'react-native';
+import {
+  View,
+  Content,
+  Item,
+  Input,
+  Label,
+  Text,
+  Button,
+  Icon,
+} from 'native-base';
+import {StyleSheet, ScrollView, Alert} from 'react-native';
 import {List, FAB} from 'react-native-paper';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {Ingred_Edit, MenuList} from '../components/menu-components';
+import {
+  Ingred_Edit,
+  MenuList,
+  Option_Edit,
+} from '../components/menu-components';
 
 const MenuView = ({navigation}) => {
   const [expanded, setExpanded] = React.useState(true);
-
   const handlePress = () => setExpanded(!expanded);
+
+  const [menu, setMenu] = React.useState({
+    coffee: {},
+  });
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
@@ -65,8 +81,13 @@ class MenuAdd extends Component {
           },
         },
       },
+      options: {
+        0: {name: '샷', price: 400},
+        1: {name: '크림', price: 300},
+      },
     };
   }
+
   updateIngredients = (
     index = Object.keys(this.state.ingredients).length,
     name = '메뉴이름',
@@ -80,6 +101,24 @@ class MenuAdd extends Component {
     this.state.ingredients[index] = obj;
     this.setState({ingredients: this.state.ingredients});
   };
+
+  updateOptions = (
+    index = Object.keys(this.state.options).length,
+    name = '옵션이름',
+    price: 0,
+  ) => {
+    let obj = {};
+    obj.name = name;
+    obj.price = price;
+    this.state.options[index] = obj;
+    this.setState({options: this.state.options});
+  };
+
+  deleteOption = (index) => {
+    delete this.state.options[index];
+    this.setState({options: this.state.options});
+  };
+
   render() {
     const Ingreds = () => {
       let tag = [];
@@ -88,8 +127,33 @@ class MenuAdd extends Component {
           <Ingred_Edit
             name={this.state.ingredients[index].name}
             key={index}
+            compKey={index}
             thumbSource={this.state.ingredients[index].source}
             upIngred={this.updateIngredients}
+          />,
+        );
+      }
+      return tag;
+    };
+
+    const Options = () => {
+      let tag = [];
+      for (let index in this.state.options) {
+        // 10진수로 파싱
+        index = parseInt(index, 10);
+        let flag = false;
+        if (index === Object.keys(this.state.options).length - 1) {
+          flag = true;
+        }
+        tag.push(
+          <Option_Edit
+            key={index}
+            compKey={index}
+            isLast={flag}
+            name={this.state.options[index].name}
+            price={this.state.options[index].price}
+            updateEvent={this.updateOptions}
+            deleteEvent={this.deleteOption}
           />,
         );
       }
@@ -104,7 +168,7 @@ class MenuAdd extends Component {
           <Input />
         </Item>
         <Item stackedLabel style={MenuStyle.item}>
-          <Label>메뉴 설명</Label>
+          <Label>메뉴 카테고리</Label>
           <Input />
         </Item>
         <View style={{flexDirection: 'row'}}>
@@ -128,6 +192,14 @@ class MenuAdd extends Component {
             />
           </ScrollView>
         </Item>
+        <Options />
+        <Button
+          primary
+          style={{marginTop: 10}}
+          onPress={() => Alert.alert('test', 'ttt')}>
+          <Icon name="send" />
+          <Text style={{fontSize: 15, fontWeight: 'bold'}}>추가</Text>
+        </Button>
       </Content>
     );
   }
