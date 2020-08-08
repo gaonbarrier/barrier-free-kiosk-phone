@@ -106,11 +106,9 @@ class MenuAdd extends Component {
     this.setState({ingredients: this.state.ingredients});
   };
 
-  updateOptions = (
-    index = Object.keys(this.state.options).length,
-    name = '옵션이름',
-    price: 0,
-  ) => {
+  updateOptions = (index, name = '옵션이름', price: 0) => {
+    let _options = Object.keys(this.state.options);
+    index = _options[_options.length - 1] + 1;
     let obj = {};
     obj.name = name;
     obj.price = price;
