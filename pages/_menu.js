@@ -168,20 +168,20 @@ class MenuAdd extends Component {
         style={{paddingLeft: 10, paddingRight: 10, backgroundColor: 'white'}}>
         <Item stackedLabel style={MenuStyle.item}>
           <Label>메뉴 이름</Label>
-          <Input />
+          <Input onEndEditing={(e) => this.setState({menu: e.nativeEvent.text})} />
         </Item>
         <Item stackedLabel style={MenuStyle.item}>
           <Label>메뉴 카테고리</Label>
-          <Input />
+          <Input onEndEditing={(e) => this.setState({category: e.nativeEvent.text})}  />
         </Item>
         <View style={{flexDirection: 'row'}}>
           <Item stackedLabel style={{flex: 1}}>
             <Label>가격</Label>
-            <Input />
+            <Input onEndEditing={(e) => this.setState({price_1: e.nativeEvent.text})}  />
           </Item>
           <Item stackedLabel style={{flex: 1}}>
             <Label>가격 2</Label>
-            <Input />
+            <Input onEndEditing={(e) => this.setState({price_2: e.nativeEvent.text})}  />
           </Item>
         </View>
         <Item stackedLabel style={{alignItems: 'space-between'}}>
