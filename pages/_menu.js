@@ -11,7 +11,9 @@ import {
 } from 'native-base';
 import {StyleSheet, ScrollView, Alert} from 'react-native';
 import {List, FAB} from 'react-native-paper';
+import {decode as base64decode, encode as base64encode} from 'base-64';
 import {createStackNavigator} from '@react-navigation/stack';
+import {encode, decode as utf8decode} from 'utf8';
 
 import {
   Ingred_Edit,
@@ -23,22 +25,130 @@ const MenuView = ({navigation}) => {
   const [expanded, setExpanded] = React.useState(true);
   const handlePress = () => setExpanded(!expanded);
 
-  const [menu, setMenu] = React.useState({
-    coffee: {},
+  const [menuObject, setMenuObject] = React.useState({
+    '7Luk7ZS8': [
+      {
+        menu: '아메리카',
+        category: '카테고리',
+        price_1: 1300,
+        price_2: 1500,
+        ingredients: {
+          0: {
+            name: 'Bean',
+            source: {
+              uri: null,
+            },
+          },
+          1: {
+            name: 'Water',
+            source: {
+              uri: null,
+            },
+          },
+        },
+        options: {
+          0: {name: '샷', price: 400},
+          1: {name: '크림', price: 300},
+        },
+      },
+      {
+        menu: '무슨무슨커',
+        category: '카테고리',
+        price_1: 1300,
+        price_2: 1500,
+        ingredients: {
+          0: {
+            name: 'Bean',
+            source: {
+              uri: null,
+            },
+          },
+          1: {
+            name: 'Water',
+            source: {
+              uri: null,
+            },
+          },
+        },
+        options: {
+          0: {name: '샷', price: 400},
+          1: {name: '크림', price: 300},
+        },
+      },
+    ],
+    '652865a8': [
+      {
+        menu: '녹차라떼',
+        category: '카테고리',
+        price_1: 1300,
+        price_2: 1500,
+        ingredients: {
+          0: {
+            name: 'Bean',
+            source: {
+              uri: null,
+            },
+          },
+          1: {
+            name: 'Water',
+            source: {
+              uri: null,
+            },
+          },
+        },
+        options: {
+          0: {name: '샷', price: 400},
+          1: {name: '크림', price: 300},
+        },
+      },
+      {
+        menu: '무슨무슨라떼',
+        category: '카테고리',
+        price_1: 1300,
+        price_2: 1500,
+        ingredients: {
+          0: {
+            name: 'Bean',
+            source: {
+              uri: null,
+            },
+          },
+          1: {
+            name: 'Water',
+            source: {
+              uri: null,
+            },
+          },
+        },
+        options: {
+          0: {name: '샷', price: 400},
+          1: {name: '크림', price: 300},
+        },
+      },
+    ],
   });
+
+  const makeMenuList = () => {
+    Object.keys(menuObject).forEach((categoryName) => {
+      categoryName = base64decode(categoryName);
+      alert(utf8decode(categoryName));
+    });
+  };
+
+  makeMenuList();
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <List.Section title="메뉴">
         <List.Accordion
-          title="커피"
+          title="11111111"
           left={(props) => <List.Icon {...props} icon="equal-box" />}
           expanded={expanded}
           onPress={handlePress}>
           <MenuList menuName="아메리카노" />
         </List.Accordion>
         <List.Accordion
-          title="디저트"
+          title="2222222"
           left={(props) => <List.Icon {...props} icon="equal-box" />}>
           <MenuList menuName="아메리카노" />
           <MenuList menuName="아메리카노" />
@@ -47,7 +157,7 @@ const MenuView = ({navigation}) => {
       <FAB
         style={styles.fab}
         icon="plus"
-        onPress={() => navigation.navigate('메뉴 추가')}
+        onPress={() => navigation.navigate('메뉴 추가', {})}
       />
     </View>
   );
@@ -168,20 +278,28 @@ class MenuAdd extends Component {
         style={{paddingLeft: 10, paddingRight: 10, backgroundColor: 'white'}}>
         <Item stackedLabel style={MenuStyle.item}>
           <Label>메뉴 이름</Label>
-          <Input onEndEditing={(e) => this.setState({menu: e.nativeEvent.text})} />
+          <Input
+            onEndEditing={(e) => this.setState({menu: e.nativeEvent.text})}
+          />
         </Item>
         <Item stackedLabel style={MenuStyle.item}>
           <Label>메뉴 카테고리</Label>
-          <Input onEndEditing={(e) => this.setState({category: e.nativeEvent.text})}  />
+          <Input
+            onEndEditing={(e) => this.setState({category: e.nativeEvent.text})}
+          />
         </Item>
         <View style={{flexDirection: 'row'}}>
           <Item stackedLabel style={{flex: 1}}>
             <Label>가격</Label>
-            <Input onEndEditing={(e) => this.setState({price_1: e.nativeEvent.text})}  />
+            <Input
+              onEndEditing={(e) => this.setState({price_1: e.nativeEvent.text})}
+            />
           </Item>
           <Item stackedLabel style={{flex: 1}}>
             <Label>가격 2</Label>
-            <Input onEndEditing={(e) => this.setState({price_2: e.nativeEvent.text})}  />
+            <Input
+              onEndEditing={(e) => this.setState({price_2: e.nativeEvent.text})}
+            />
           </Item>
         </View>
         <Item stackedLabel style={{alignItems: 'space-between'}}>

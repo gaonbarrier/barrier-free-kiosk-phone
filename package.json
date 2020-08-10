@@ -16,6 +16,7 @@
     "@react-navigation/drawer": "^5.8.6",
     "@react-navigation/native": "^5.7.1",
     "@react-navigation/stack": "^5.7.1",
+    "base-64": "^0.1.0",
     "native-base": "^2.13.13",
     "react": "16.13.1",
     "react-devtools": "^4.8.2",
@@ -29,7 +30,8 @@
     "react-native-safe-area-context": "^3.1.1",
     "react-native-screens": "^2.9.0",
     "react-native-svg": "^12.1.0",
-    "react-native-tcp-socket": "^4.2.0"
+    "react-native-tcp-socket": "^4.2.0",
+    "utf8": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.10.5",
