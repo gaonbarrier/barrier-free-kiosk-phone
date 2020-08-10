@@ -28,7 +28,7 @@ const MenuView = ({navigation}) => {
   const [menuObject, setMenuObject] = React.useState({
     '7Luk7ZS8': [
       {
-        menu: '아메리카',
+        name: '아메리카노',
         category: '카테고리',
         price_1: 1300,
         price_2: 1500,
@@ -52,7 +52,7 @@ const MenuView = ({navigation}) => {
         },
       },
       {
-        menu: '무슨무슨커',
+        name: '무슨무슨커피',
         category: '카테고리',
         price_1: 1300,
         price_2: 1500,
@@ -78,7 +78,7 @@ const MenuView = ({navigation}) => {
     ],
     '652865a8': [
       {
-        menu: '녹차라떼',
+        name: '녹차라떼',
         category: '카테고리',
         price_1: 1300,
         price_2: 1500,
@@ -102,7 +102,7 @@ const MenuView = ({navigation}) => {
         },
       },
       {
-        menu: '무슨무슨라떼',
+        name: '무슨무슨라떼',
         category: '카테고리',
         price_1: 1300,
         price_2: 1500,
@@ -128,31 +128,49 @@ const MenuView = ({navigation}) => {
     ],
   });
 
-  const makeMenuList = () => {
-    Object.keys(menuObject).forEach((categoryName) => {
-      categoryName = base64decode(categoryName);
-      alert(utf8decode(categoryName));
+  const MakeMenuAccordion = () => {
+    let tag = [];
+    let count = 0;
+    Object.keys(menuObject).forEach((base64CategoryName) => {
+      let categoryName = base64decode(base64CategoryName);
+      categoryName = utf8decode(categoryName);
+      if (count > 0) {
+        tag.push(
+          <List.Accordion
+            title={categoryName}
+            left={(props) => <List.Icon {...props} icon="equal-box"/>}>
+            <MakeMenuList category={base64CategoryName}/>
+          </List.Accordion>,
+        );
+      } else {
+        tag.push(
+          <List.Accordion
+            expanded={expanded}
+            onPress={handlePress}
+            title={categoryName}
+            left={(props) => <List.Icon {...props} icon="equal-box"/>}>
+            <MakeMenuList category={base64CategoryName}/>
+          </List.Accordion>,
+        );
+      }
+      count++;
     });
+    return tag;
   };
 
-  makeMenuList();
+  const MakeMenuList = (props) => {
+    let tag = [];
+    menuObject[props.category].forEach((menu) => {
+      console.log(menu.name);
+      tag.push(<MenuList menuName={menu.name} />);
+    });
+    return tag;
+  };
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <List.Section title="메뉴">
-        <List.Accordion
-          title="11111111"
-          left={(props) => <List.Icon {...props} icon="equal-box" />}
-          expanded={expanded}
-          onPress={handlePress}>
-          <MenuList menuName="아메리카노" />
-        </List.Accordion>
-        <List.Accordion
-          title="2222222"
-          left={(props) => <List.Icon {...props} icon="equal-box" />}>
-          <MenuList menuName="아메리카노" />
-          <MenuList menuName="아메리카노" />
-        </List.Accordion>
+        <MakeMenuAccordion />
       </List.Section>
       <FAB
         style={styles.fab}
