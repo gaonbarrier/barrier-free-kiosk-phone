@@ -37,6 +37,7 @@ export const Ingred_Edit = (props) => {
   useEffect(() => {
     setNewProps(newProps);
   }, [newProps, props]);
+
   return (
     <View style={{alignItems: 'center', marginHorizontal: 10}}>
       <TouchableOpacity
@@ -49,7 +50,11 @@ export const Ingred_Edit = (props) => {
       </TouchableOpacity>
       <Input
         onEndEditing={(e) =>
-          props.upIngred(props.compKey, e.nativeEvent.text, props.thumbSource)
+          props.upIngred(
+            props.compKey,
+            e.nativeEvent.text,
+            props.thumbSource.uri,
+          )
         }
         style={{fontSize: 17}}>
         {props.name}
@@ -148,8 +153,7 @@ const getImage = (props) =>
       const source = {uri: response.uri};
 
       // You can also display the image using data:
-      // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-      props.upIngred(props.compKey, props.name, source);
+      // const source = {uri: 'data:image/jpeg;base64,' + response.data};
+      props.upIngred(props.compKey, props.name, source.uri);
     }
   });

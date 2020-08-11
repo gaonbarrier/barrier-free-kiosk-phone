@@ -1,7 +1,7 @@
 import TcpSocket from 'react-native-tcp-socket';
 
-const serverPort = 9919;
-const serverHost = '0.0.0.0';
+const serverPort = 2345;
+const serverHost = '192.168.0.75';
 let server;
 let client;
 
@@ -37,12 +37,12 @@ const RunServer = () => {
   });
 };
 
-const RunClient = () => {
+const RunClient = (sendData) => {
   client = TcpSocket.createConnection(
     {
-      port: serverPort,
-      host: serverHost,
-      localAddress: '127.0.0.1',
+      port: 2002,
+      host: '192.168.0.75',
+      // localAddress: '127.0.0.1',
       reuseAddress: true,
       // localPort: 20000,
       // interface: "wifi",
@@ -50,7 +50,8 @@ const RunClient = () => {
     },
     (address) => {
       console.log('opened client on ' + JSON.stringify(address));
-      client.write('Hello, server! Love, Client.');
+      client.write(sendData);
+      client.destroy();
     },
   );
 
@@ -67,6 +68,6 @@ const RunClient = () => {
   client.on('close', () => {
     console.log('client close');
   });
-};
 
+};
 export {RunClient, RunServer};
