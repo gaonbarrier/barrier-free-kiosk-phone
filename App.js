@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Button, Text} from 'native-base';
-import {Image, TouchableOpacity} from 'react-native';
+import {Image, TouchableOpacity, ScrollView} from 'react-native';
 import {RunServer, RunClient} from './networks/Server';
 import ImagePicker from 'react-native-image-picker';
 
@@ -8,7 +8,63 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      image: null,
+      server: {
+        ip: '192.168.0.2',
+        port: 2002,
+      },
+      sendMenu: {
+        action: 'NewMenu',
+        menu: '메뉴 이름',
+        category: '카테고리',
+        image: null,
+        price_1: 1300,
+        price_2: 1500,
+        ingredients: {
+          0: {
+            name: '커콩',
+            image: null,
+          },
+          1: {
+            name: '물',
+            image: null,
+          },
+        },
+        options: [
+          {name: '샷', price: 400},
+          {name: '크림', price: 300},
+        ],
+      },
+      deleteCategory: {
+        action: 'RemoveMenu',
+        category: '라떼',
+      },
+      deleteMenu: {
+        action: 'RemoveMenu',
+        category: '라떼',
+        menu: '녹차라떼',
+      },
+      modifyMenu: {
+        action: 'ModifyMenu',
+        category: '라떼',
+        menu: '메뉴 이름',
+        image: null,
+        price_1: 1300,
+        price_2: 1500,
+        ingredients: {
+          0: {
+            name: '커콩',
+            image: null,
+          },
+          1: {
+            name: '물',
+            image: null,
+          },
+        },
+        options: [
+          {name: '샷', price: 400},
+          {name: '크림', price: 300},
+        ],
+      },
     };
   }
 
@@ -34,40 +90,53 @@ export default class App extends Component {
           console.log('ImagePicker Error: ', response.error);
         } else {
           // const source = {uri: response.uri};
-
-          // You can also display the image using data:
           // const source = {uri: 'data:image/jpeg;base64,' + response.data};
-          this.setState({image: 'data:image/jpeg;base64,' + response.data});
+
+          this.state.sendMenu.image = 'data:image/jpeg;base64,' + response.data;
+          this.setState({sendMenu: this.state.sendMenu});
         }
       },
     );
   }
 
   render() {
+    const MockupViwewr = () => {
+      let obj = {...this.state.sendMenu};
+      obj.image = '(base64 image)';
+      return <Text>{JSON.stringify(obj, null, 4)}</Text>;
+    };
+
     return (
       <View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Button onPress={() => RunClient('Test', '192.168.0.2', 2002)}>
+        <ScrollView horizontal>
+          <Button onPress={() => RunClient('Test', this.state.server.ip, 2002)}>
             <Text>메뉴 전송</Text>
           </Button>
-          <Button onPress={() => RunClient('Test', '192.168.0.2', 2002)}>
+          <Button onPress={() => RunClient('Test', this.state.server.ip, 2002)}>
             <Text>메뉴 삭제</Text>
           </Button>
-          <Button onPress={() => RunClient('Test', '192.168.0.2', 2002)}>
+          <Button onPress={() => RunClient('Test', this.state.server.ip, 2002)}>
             <Text>메뉴 수정</Text>
           </Button>
-        </View>
+          <Button onPress={() => RunClient('Test', this.state.server.ip, 2002)}>
+            <Text>카테고리 삭제</Text>
+          </Button>
+        </ScrollView>
         <TouchableOpacity onPress={() => this.updateImage()}>
           <Image
             style={{
+              marginTop: 40,
               backgroundColor: 'gray',
-              width: 300,
-              height: 300,
+              width: 200,
+              height: 200,
               alignSelf: 'center',
             }}
-            source={{uri: this.state.image}}
+            source={{uri: this.state.sendMenu.image}}
           />
         </TouchableOpacity>
+        <ScrollView vertical>
+          <MockupViwewr />
+        </ScrollView>
       </View>
     );
   }
