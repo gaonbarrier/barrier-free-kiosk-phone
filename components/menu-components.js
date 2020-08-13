@@ -24,7 +24,9 @@ export const MenuList = (props) => (
       <Text>{props.menuName}</Text>
     </Body>
     <Right>
-      <Button danger>
+      <Button
+        danger
+        onPress={() => props.onDelete(props.menuCategory, props.menuName)}>
         <Text>삭제</Text>
       </Button>
     </Right>

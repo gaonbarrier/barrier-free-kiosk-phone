@@ -4,7 +4,7 @@ import {RunServer} from './networks/Server';
 
 export default class App extends Component {
   componentDidMount() {
-    // RunServer();
+    RunServer();
   }
 
   render() {

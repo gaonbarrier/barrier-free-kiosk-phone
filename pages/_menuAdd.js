@@ -25,7 +25,7 @@ export default class MenuAdd extends Component {
   constructor() {
     super();
     this.state = {
-      menu: '메뉴 이름',
+      menuName: '메뉴 이름',
       category: '카테고리',
       image: null,
       price_1: 1300,
@@ -149,8 +149,8 @@ export default class MenuAdd extends Component {
         <Item stackedLabel style={MenuStyle.item}>
           <Label>메뉴 이름</Label>
           <Input
-            onEndEditing={(e) => this.setState({menu: e.nativeEvent.text})}>
-            {this.state.menu}
+            onEndEditing={(e) => this.setState({menuName: e.nativeEvent.text})}>
+            {this.state.menuName}
           </Input>
         </Item>
         <Item stackedLabel style={MenuStyle.item}>
@@ -209,7 +209,27 @@ export default class MenuAdd extends Component {
           </Button>
         </Item>
         <Options />
-        <Button rounded primary style={{marginTop: 10}} onPress={() => {}}>
+        <Button
+          rounded
+          primary
+          style={{marginTop: 10}}
+          onPress={() => {
+            this.props.route.params.updateMenu(this.state);
+            Alert.alert('완료', this.state.menuName + ' 메뉴를 추가했습니다');
+            this.props.navigation.goBack();
+            /* RunClient(
+              '{' +
+                '"Action" : "NewMenu",' +
+                '"Name" : "아무메뉴",' +
+                '"Category" : "아무카테고리",' +
+                '"PriceHot" : "111111",' +
+                '"PriceCold" : "2222222",' +
+                '"Image" : "테스트",' +
+                '"Ingredients" : {"재료1" : "Base64","재료2" : "Base64"},' +
+                '"Options" : {"Option1" : "?","Option2" : "?"}' +
+                '}',
+            ); */
+          }}>
           <Icon name="send" />
           <Text style={{fontSize: 15, fontWeight: 'bold'}}>추가</Text>
         </Button>
