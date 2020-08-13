@@ -37,11 +37,11 @@ const RunServer = () => {
   });
 };
 
-const RunClient = (sendData) => {
+const RunClient = (sendData, host, port) => {
   client = TcpSocket.createConnection(
     {
-      port: 2002,
-      host: '192.168.0.75',
+      port: port,
+      host: host,
       // localAddress: '127.0.0.1',
       reuseAddress: true,
       // localPort: 20000,
