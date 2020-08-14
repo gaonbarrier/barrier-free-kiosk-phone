@@ -161,14 +161,16 @@ export default class App extends Component {
             <Text>카테고리 삭제</Text>
           </Button>
         </ScrollView>
-        <View style={{backgroundColor: 'gray', height: 50, marginTop: 70}}>
+        <View style={{backgroundColor: '#c4c4c4', height: 100, marginTop: 70}}>
           <Input
+            style={{fontSize: 20}}
             onEndEditing={(e) =>
               this.updateServerInfo(e.nativeEvent.text, this.state.server.port)
             }>
             {this.state.server.ip}
           </Input>
           <Input
+            style={{fontSize: 20}}
             onEndEditing={(e) =>
               this.updateServerInfo(
                 this.state.server.ip,
