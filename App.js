@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Button, Text} from 'native-base';
+import {View, Button, Text, Input} from 'native-base';
 import {Image, TouchableOpacity, ScrollView} from 'react-native';
 import {RunServer, RunClient} from './networks/Server';
 import ImagePicker from 'react-native-image-picker';
@@ -103,6 +103,13 @@ export default class App extends Component {
     this.setState({response: response});
   }
 
+  updateServerInfo(ip, port) {
+    let obj = {};
+    obj.ip = ip;
+    obj.port = port;
+    this.setState({server: obj});
+  }
+
   render() {
     const MockupViwewr = () => {
       let obj = {...this.state.sendMenu};
@@ -154,6 +161,23 @@ export default class App extends Component {
             <Text>카테고리 삭제</Text>
           </Button>
         </ScrollView>
+        <View style={{backgroundColor: 'gray', height: 50, marginTop: 70}}>
+          <Input
+            onEndEditing={(e) =>
+              this.updateServerInfo(e.nativeEvent.text, this.state.server.port)
+            }>
+            {this.state.server.ip}
+          </Input>
+          <Input
+            onEndEditing={(e) =>
+              this.updateServerInfo(
+                this.state.server.ip,
+                parseInt(e.nativeEvent.text, 10),
+              )
+            }>
+            {this.state.server.port}
+          </Input>
+        </View>
         <TouchableOpacity onPress={() => this.updateImage()}>
           <Image
             style={{
