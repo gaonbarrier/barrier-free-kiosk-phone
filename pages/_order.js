@@ -24,6 +24,7 @@ export default class _order extends Component {
         },
       },
       7315: {
+        Status: 'rejected',
         Date: '2020/07/24 2:52PM',
         OrderList: {
           0: {
@@ -38,7 +39,7 @@ export default class _order extends Component {
           },
           2: {Menu: '쿠키', Count: 5, Options: ['초코칩']},
         },
-      }
+      },
     };
   }
 
@@ -48,10 +49,14 @@ export default class _order extends Component {
 
       for (const [key, value] of Object.entries(this.state)) {
         console.log(`${key}: ${value}`);
+        for (const [k, v] of Object.entries(value)) {
+          console.log(`${k}: ${v}`);
+        }
       }
 
       return rows;
     };
+
     return (
       <Content style={{backgroundColor: 'white'}}>
         <OrderListCreator />
