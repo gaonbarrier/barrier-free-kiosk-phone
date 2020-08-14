@@ -9,7 +9,7 @@ export default class App extends Component {
     super();
     this.state = {
       server: {
-        ip: '192.168.0.2',
+        ip: '192.168.0.78',
         port: 2002,
       },
       sendMenu: {
@@ -82,7 +82,7 @@ export default class App extends Component {
         },
       },
       (response) => {
-        console.log('Response = ', response);
+        //console.log('Response = ', response);
 
         if (response.didCancel) {
           console.log('User cancelled image picker');
@@ -99,6 +99,10 @@ export default class App extends Component {
     );
   }
 
+  updateResponse(response) {
+    this.setState({response: response});
+  }
+
   render() {
     const MockupViwewr = () => {
       let obj = {...this.state.sendMenu};
@@ -108,17 +112,45 @@ export default class App extends Component {
 
     return (
       <View>
-        <ScrollView horizontal>
-          <Button onPress={() => RunClient('Test', this.state.server.ip, 2002)}>
+        <ScrollView horizontal style={{marginTop: 40}}>
+          <Button
+            onPress={() =>
+              RunClient(
+                JSON.stringify(this.state.sendMenu),
+                this.state.server.ip,
+                2002,
+              )
+            }>
             <Text>메뉴 전송</Text>
           </Button>
-          <Button onPress={() => RunClient('Test', this.state.server.ip, 2002)}>
+          <Button
+            onPress={() =>
+              RunClient(
+                JSON.stringify(this.state.deleteMenu),
+                this.state.server.ip,
+                2002,
+              )
+            }>
             <Text>메뉴 삭제</Text>
           </Button>
-          <Button onPress={() => RunClient('Test', this.state.server.ip, 2002)}>
+          <Button
+            onPress={() =>
+              RunClient(
+                JSON.stringify(this.state.modifyMenu),
+                this.state.server.ip,
+                2002,
+              )
+            }>
             <Text>메뉴 수정</Text>
           </Button>
-          <Button onPress={() => RunClient('Test', this.state.server.ip, 2002)}>
+          <Button
+            onPress={() =>
+              RunClient(
+                JSON.stringify(this.state.deleteCategory),
+                this.state.server.ip,
+                2002,
+              )
+            }>
             <Text>카테고리 삭제</Text>
           </Button>
         </ScrollView>
@@ -134,7 +166,8 @@ export default class App extends Component {
             source={{uri: this.state.sendMenu.image}}
           />
         </TouchableOpacity>
-        <ScrollView vertical>
+        <Text>보낼 데이터</Text>
+        <ScrollView vertical style={{height: 200}}>
           <MockupViwewr />
         </ScrollView>
       </View>
