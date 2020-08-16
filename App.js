@@ -9,30 +9,24 @@ export default class App extends Component {
     super();
     this.state = {
       server: {
-        ip: '192.168.0.78',
+        ip: '192.168.0.75',
         port: 2002,
       },
       sendMenu: {
-        action: 'NewMenu',
-        menu: '메뉴 이름',
-        category: '카테고리',
-        image: null,
-        price_1: 1300,
-        price_2: 1500,
-        ingredients: {
-          0: {
-            name: '커콩',
-            image: null,
-          },
-          1: {
-            name: '물',
-            image: null,
-          },
+        Action: 'NewMenu',
+        Name: '테스',
+        Category: '카테고리',
+        PriceHot: 2000,
+        PriceCold: 2400,
+        Image: '이미지',
+        Ingredients: {
+          a1: 'Base64',
+          a2: 'Base64',
         },
-        options: [
-          {name: '샷', price: 400},
-          {name: '크림', price: 300},
-        ],
+        Options: {
+          Option1: '?',
+          Option2: '?',
+        },
       },
       deleteCategory: {
         action: 'RemoveMenu',
@@ -92,7 +86,11 @@ export default class App extends Component {
           // const source = {uri: response.uri};
           // const source = {uri: 'data:image/jpeg;base64,' + response.data};
 
-          this.state.sendMenu.image = 'data:image/jpeg;base64,' + response.data;
+          this.state.sendMenu.Image = 'data:image/jpeg;base64,' + response.data;
+          this.state.sendMenu.Ingredients.a1 =
+            'data:image/jpeg;base64,' + response.data;
+          this.state.sendMenu.Ingredients.a2 =
+            'data:image/jpeg;base64,' + response.data;
           this.setState({sendMenu: this.state.sendMenu});
         }
       },
@@ -189,7 +187,7 @@ export default class App extends Component {
               height: 200,
               alignSelf: 'center',
             }}
-            source={{uri: this.state.sendMenu.image}}
+            source={{uri: this.state.sendMenu.Image}}
           />
         </TouchableOpacity>
         <Text>보낼 데이터</Text>

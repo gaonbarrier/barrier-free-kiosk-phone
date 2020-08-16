@@ -1,5 +1,7 @@
 import TcpSocket from 'react-native-tcp-socket';
 
+const Buffer = require('buffer/').Buffer;
+
 const serverPort = 2002;
 const serverHost = '0.0.0.0';
 let server;
@@ -50,6 +52,7 @@ const RunClient = (sendData, host, port) => {
     },
     (address) => {
       console.log('opened client on ' + JSON.stringify(address));
+      sendData
       client.write(sendData);
       client.destroy();
     },
