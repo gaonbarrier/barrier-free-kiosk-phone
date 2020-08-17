@@ -3,26 +3,26 @@ import {View, Button, Text, Input} from 'native-base';
 import {Image, TouchableOpacity, ScrollView} from 'react-native';
 import {RunServer, RunClient} from './networks/Server';
 import ImagePicker from 'react-native-image-picker';
+import ImageResizer from 'react-native-image-resizer';
+import {moveFile, unlink} from 'react-native-fs';
+import utf8 from 'utf8';
 
 export default class App extends Component {
   constructor() {
     super();
     this.state = {
       server: {
-        ip: '192.168.0.75',
+        ip: '192.168.0.78',
         port: 2002,
       },
       sendMenu: {
         Action: 'NewMenu',
-        Name: '테스',
+        Name: '테스트',
         Category: '카테고리',
-        PriceHot: 2000,
-        PriceCold: 2400,
-        Image: '이미지',
-        Ingredients: {
-          a1: 'Base64',
-          a2: 'Base64',
-        },
+        Price_1: 2000,
+        Price_2: 2400,
+        Images: ['이미지'],
+        Ingredients: ['재료1', '재료2'],
         Options: {
           Option1: '?',
           Option2: '?',
@@ -76,7 +76,7 @@ export default class App extends Component {
         },
       },
       (response) => {
-        //console.log('Response = ', response);
+        // console.log('Response = ', response);
 
         if (response.didCancel) {
           console.log('User cancelled image picker');
@@ -85,13 +85,31 @@ export default class App extends Component {
         } else {
           // const source = {uri: response.uri};
           // const source = {uri: 'data:image/jpeg;base64,' + response.data};
-
-          this.state.sendMenu.Image = 'data:image/jpeg;base64,' + response.data;
-          this.state.sendMenu.Ingredients.a1 =
-            'data:image/jpeg;base64,' + response.data;
-          this.state.sendMenu.Ingredients.a2 =
-            'data:image/jpeg;base64,' + response.data;
-          this.setState({sendMenu: this.state.sendMenu});
+          console.log('URI=' + response.uri);
+          ImageResizer.createResizedImage(
+            response.uri,
+            400,
+            400,
+            'PNG',
+            90,
+            0,
+          ).then(({uri}) => {
+            console.log('Resized URI=' + uri);
+            let movedUri = uri.replace(
+              uri.split('/').pop(),
+              this.state.sendMenu.Category +
+                '_' +
+                this.state.sendMenu.Name +
+                '.PNG',
+            );
+            console.log('Moved=' + movedUri);
+            unlink(movedUri);
+            moveFile(uri, movedUri);
+            this.state.sendMenu.Images[0] = null;
+            this.setState({sendMenu: this.state.sendMenu});
+            this.state.sendMenu.Images[0] = movedUri;
+            this.setState({sendMenu: this.state.sendMenu});
+          });
         }
       },
     );
@@ -109,9 +127,8 @@ export default class App extends Component {
   }
 
   render() {
-    const MockupViwewr = () => {
+    const MockupViewer = () => {
       let obj = {...this.state.sendMenu};
-      obj.image = '(base64 image)';
       return <Text>{JSON.stringify(obj, null, 4)}</Text>;
     };
 
@@ -127,6 +144,9 @@ export default class App extends Component {
               )
             }>
             <Text>메뉴 전송</Text>
+          </Button>
+          <Button onPress={() => RunClient('file', this.state.server.ip, 2002)}>
+            <Text>테스트</Text>
           </Button>
           <Button
             onPress={() =>
@@ -187,12 +207,12 @@ export default class App extends Component {
               height: 200,
               alignSelf: 'center',
             }}
-            source={{uri: this.state.sendMenu.Image}}
+            source={{uri: this.state.sendMenu.Images[0]}}
           />
         </TouchableOpacity>
-        <Text>보낼 데이터</Text>
+        <Text>보낼 JSON 데이터</Text>
         <ScrollView vertical style={{height: 200}}>
-          <MockupViwewr />
+          <MockupViewer />
         </ScrollView>
       </View>
     );

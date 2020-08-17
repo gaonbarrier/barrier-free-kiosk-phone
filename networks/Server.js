@@ -52,9 +52,8 @@ const RunClient = (sendData, host, port) => {
     },
     (address) => {
       console.log('opened client on ' + JSON.stringify(address));
-      sendData
-      client.write(sendData);
-      client.destroy();
+      client.write(sendData, 'utf-8');
+      //client.destroy();
     },
   );
 
