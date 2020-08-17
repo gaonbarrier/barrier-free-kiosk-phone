@@ -72,10 +72,12 @@ export default class _order extends Component {
       let row = [];
       let orderId = 1234;
       let menu = [];
+      let status = 'none';
 
       for (const [key, value] of Object.entries(this.state)) {
         console.log(`${key}: ${value}`);
         orderId = key;
+        status = value.Status;
         for (const [k, v] of Object.entries(value.OrderList)) {
           console.log(`${k}: ${v}`);
           menu.push(v.Menu + ` X ${v.Count} {` + v.Options.toString() + '}');
@@ -83,6 +85,7 @@ export default class _order extends Component {
 
         row.push(
           <OrderList
+            status={status}
             thumbnail={require('../images/coffee.jpg')}
             orderId={orderId}
             menu={menu}

@@ -4,7 +4,6 @@ import {StyleSheet} from 'react-native';
 import {List, FAB} from 'react-native-paper';
 import {decode as base64decode, encode as base64encode} from 'base-64';
 import {createStackNavigator, useCardAnimation} from '@react-navigation/stack';
-import {encode as utf8encode, decode as utf8decode} from 'utf8';
 import MenuAdd from './_menuAdd';
 
 import {MenuList} from '../components/menu-components';
