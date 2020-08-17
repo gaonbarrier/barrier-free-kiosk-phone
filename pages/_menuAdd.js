@@ -18,7 +18,7 @@ import {
   Image,
 } from 'react-native';
 import {RunClient} from '../networks/Server';
-import {encode as utf8encode, decode as utf8decode} from 'utf8';
+import ImageResizer from 'react-native-image-resizer';
 import ImagePicker from 'react-native-image-picker';
 
 export default class MenuAdd extends Component {
@@ -95,7 +95,17 @@ export default class MenuAdd extends Component {
 
           // You can also display the image using data:
           // const source = {uri: 'data:image/jpeg;base64,' + response.data};
-          this.state.image = response.uri;
+          let imageURI;
+          ImageResizer.createResizedImage(
+            response.uri,
+            400,
+            400,
+            'PNG',
+            90,
+          ).then((result) => {
+            imageURI = result.uri;
+          });
+          this.state.image = imageURI;
           this.setState({image: this.state.image});
         }
       },
