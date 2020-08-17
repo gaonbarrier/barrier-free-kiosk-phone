@@ -53,13 +53,18 @@ export const Ingred_Edit = (props) => {
         />
       </TouchableOpacity>
       <Input
-        onEndEditing={(e) =>
+        onEndEditing={(e) => {
+          let movedUri = props.thumbSource.uri.replace(
+            props.name,
+            e.nativeEvent.text,
+          );
+          RNFS.moveFile(props.thumbSource.uri, movedUri);
           props.upIngred(
             props.compKey,
             e.nativeEvent.text,
-            props.thumbSource.uri,
-          )
-        }
+            movedUri,
+          );
+        }}
         style={{fontSize: 17}}>
         {props.name}
       </Input>
@@ -154,18 +159,17 @@ const getImage = (props) =>
     } else if (response.error) {
       console.log('ImagePicker Error: ', response.error);
     } else {
-      let movedUri;
       ImageResizer.createResizedImage(response.uri, 400, 400, 'PNG', 90).then(
         ({uri}) => {
-          movedUri = uri.replace(
+          let movedUri = uri.replace(
             uri.split('/').pop(),
             '재료_' + props.name + '.PNG',
           );
           console.log('Resized URI=' + movedUri);
           RNFS.unlink(movedUri);
           RNFS.moveFile(uri, movedUri);
+          props.upIngred(props.compKey, props.name, movedUri);
         },
       );
-      props.upIngred(props.compKey, props.name, moveUri);
     }
   });
