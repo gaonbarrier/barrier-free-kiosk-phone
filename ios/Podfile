@@ -10,6 +10,8 @@ target 'barrier_free_kiosk_manager_app' do
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
   target 'barrier_free_kiosk_manager_appTests' do
     inherit! :complete
     # Pods for testing
