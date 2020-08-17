@@ -14,6 +14,8 @@ import {
 } from 'native-base';
 import {TouchableOpacity} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
+import ImageResizer from 'react-native-image-resizer';
+import RNFS from 'react-native-fs';
 
 // 메뉴 보기에서의 메뉴 리스트
 // 간단하게 메뉴 이름 확인하고 삭제 가능
@@ -152,10 +154,18 @@ const getImage = (props) =>
     } else if (response.error) {
       console.log('ImagePicker Error: ', response.error);
     } else {
-      const source = {uri: response.uri};
-
-      // You can also display the image using data:
-      // const source = {uri: 'data:image/jpeg;base64,' + response.data};
-      props.upIngred(props.compKey, props.name, source.uri);
+      let movedUri;
+      ImageResizer.createResizedImage(response.uri, 400, 400, 'PNG', 90).then(
+        ({uri}) => {
+          movedUri = uri.replace(
+            uri.split('/').pop(),
+            '재료_' + props.name + '.PNG',
+          );
+          console.log('Resized URI=' + movedUri);
+          RNFS.unlink(movedUri);
+          RNFS.moveFile(uri, movedUri);
+        },
+      );
+      props.upIngred(props.compKey, props.name, moveUri);
     }
   });

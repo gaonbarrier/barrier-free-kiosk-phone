@@ -20,6 +20,7 @@ import {
 import {RunClient} from '../networks/Server';
 import ImageResizer from 'react-native-image-resizer';
 import ImagePicker from 'react-native-image-picker';
+import RNFS from 'react-native-fs';
 
 export default class MenuAdd extends Component {
   constructor() {
@@ -95,21 +96,30 @@ export default class MenuAdd extends Component {
 
           // You can also display the image using data:
           // const source = {uri: 'data:image/jpeg;base64,' + response.data};
-          let imageURI;
           ImageResizer.createResizedImage(
             response.uri,
             400,
             400,
             'PNG',
             90,
-          ).then((result) => {
-            imageURI = result.uri;
+          ).then(({uri}) => {
+            let movedUri = uri.replace(
+              uri.split('/').pop(),
+              this.state.category + '_' + this.state.menuName + '.PNG',
+            );
+            console.log('Resized URI=' + movedUri);
+            RNFS.unlink(movedUri);
+            RNFS.moveFile(uri, movedUri);
+            this.state.image = null;
+            this.setState({image: this.state.image});
+            this.state.image = movedUri;
+            this.setState({image: this.state.image});
           });
-          this.state.image = imageURI;
-          this.setState({image: this.state.image});
         }
       },
     );
+
+  sendMenuToTablet() {}
 
   render() {
     const Ingreds = () => {
