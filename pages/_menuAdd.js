@@ -142,8 +142,6 @@ export default class MenuAdd extends Component {
       },
     );
 
-  sendMenuToTablet() {}
-
   render() {
     const Ingreds = () => {
       let tag = [];
