@@ -59,11 +59,7 @@ export const Ingred_Edit = (props) => {
             e.nativeEvent.text,
           );
           RNFS.moveFile(props.thumbSource.uri, movedUri);
-          props.upIngred(
-            props.compKey,
-            e.nativeEvent.text,
-            movedUri,
-          );
+          props.upIngred(props.compKey, e.nativeEvent.text, movedUri);
         }}
         style={{fontSize: 17}}>
         {props.name}
