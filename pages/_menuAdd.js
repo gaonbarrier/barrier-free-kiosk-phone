@@ -48,6 +48,29 @@ export default class MenuAdd extends Component {
     };
   }
 
+  mockup = {
+    Action: 'NewMenu',
+    Name: '메뉴이름',
+    Category: '카테고리',
+    Price_1: '뜨거운메뉴 가격',
+    Price_2: '차가운메뉴 가격',
+    Images: [
+      '카테고리_메뉴이름.PNG',
+      '재료_재료1.PNG',
+      '재료_재료2.PNG',
+      '재료_재료3.PNG',
+    ],
+    Ingredients: ['재료1', '재료2', '재료3'],
+    Options: {
+      Option1: '?',
+      Option2: '?',
+    },
+  };
+
+  sendImages = () => {
+
+  }
+
   updateIngredients = (
     index = Object.keys(this.state.ingredients).length,
     name = '메뉴이름',
